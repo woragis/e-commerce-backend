@@ -7,6 +7,7 @@ export interface Product {
   price: number;
   discount: boolean;
   discount_price: number;
+  quantity: number;
   description: string;
   specs: ProductSpecs;
   reviews: Review[];
@@ -20,4 +21,33 @@ export interface ProductSpecs {
     width: number;
     depth: number;
   };
+}
+
+export interface readProductArgs {
+  id: string;
+}
+
+export interface addProductArgs {
+  name: string;
+  price: number;
+  description: string;
+  specs: ProductSpecs;
+  images: string[];
+  quantity: number;
+}
+
+export interface editProductArgs {
+  id: string;
+  name?: string;
+  price?: number;
+  discount?: boolean;
+  discount_price?: number;
+  description?: string;
+  specs?: ProductSpecs;
+  images?: string[];
+  quantity?: number;
+}
+
+export interface deleteProductArgs {
+  id: string;
 }

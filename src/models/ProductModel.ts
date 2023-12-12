@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 import { Product } from '../types/Product.type';
-import { reviewSchema } from './ReviewModel';
+import { ReviewSchema } from './ReviewModel';
 
 interface ProductDocument extends Product, Omit<Document, '_id'> {}
 
@@ -9,6 +9,7 @@ const ProductSchema = new Schema<ProductDocument>({
   price: { type: Number, required: true },
   discount: { type: Boolean, required: true },
   discount_price: { type: Number },
+  quantity: { type: Number, required: true },
   description: { type: String, required: true },
   specs: {
     weight: { type: Number },
@@ -18,7 +19,7 @@ const ProductSchema = new Schema<ProductDocument>({
       depth: { type: Number },
     },
   },
-  reviews: [reviewSchema],
+  reviews: [ReviewSchema],
   images: [{ type: String, required: true }],
 });
 

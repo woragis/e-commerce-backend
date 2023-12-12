@@ -1,9 +1,9 @@
 import { buildSchema } from 'graphql';
 
-export const productTypeDefs = buildSchema(`#graphql
+const productTypeDefs = buildSchema(`#graphql
   type Query {
-    products: [Product!]!
-    product: Product!
+    products(input: SearchInput!): [Product!]!
+    product(id: ID!): Product!
   }
 
   type Mutation {
@@ -66,3 +66,5 @@ export const productTypeDefs = buildSchema(`#graphql
     quantity: Number
   }
 `);
+
+export default productTypeDefs;
