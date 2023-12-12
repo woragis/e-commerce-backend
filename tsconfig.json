@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "types": ["mongoose"],
+    "types": ["node", "express"],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "target": "es2016",
     "module": "commonjs",
     "esModuleInterop": true,
