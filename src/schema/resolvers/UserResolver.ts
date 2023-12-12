@@ -1,13 +1,20 @@
+import ReviewModel from '../../models/ReviewModel';
 import UserModel from '../../models/UserModel';
+import { Review } from '../../types/Review.type';
+import { SearchOptions } from '../../types/Server.type';
 import { createUserResolverArgs, readUserResolverArgs, updateUserResolverArgs, deleteUserResolverArgs } from '../../types/User.type';
 
 const userResolvers = {
   Query: {
-    users: async () => {
-      const users = await UserModel.find();
+    users: async (parent: any, args: SearchOptions) => {
+      const users = await UserModel.find().skip(args.offset).limit(args.limit);
       return users;
     },
-    user: async (parent: any, args: readUserResolverArgs) => {
+    user: async (parent: any, args: readUserResolverArgs, context: any) => {
+      context.session;
+      if (context.session.user.userId == null) {
+        return { message: 'not allowed' };
+      }
       const user = await UserModel.findById(args.id);
       return user;
     },
@@ -31,6 +38,12 @@ const userResolvers = {
     },
   },
   User: {
+    reviews: async (parent: any, args: SearchOptions) => {
+      const reviews = await ReviewModel.find({ user: parent.id } as Review)
+        .skip(args.offset)
+        .limit(args.limit);
+      return reviews;
+    },
     // cards
     // email preferences
     // addresses

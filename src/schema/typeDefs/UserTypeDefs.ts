@@ -2,7 +2,7 @@ import { buildSchema } from 'graphql';
 
 const userTypeDefs = buildSchema(`#graphql
   type Query {
-    users: [User!]!
+    users(input: SearchInput!): [User!]!
     user(id: ID!): User
 
     cards: [Card]!
@@ -13,8 +13,8 @@ const userTypeDefs = buildSchema(`#graphql
   }
 
   type Mutation {
-    createUser(input: createUserInput): User!
-    updateUser(input: updateUserInput): User!
+    createUser(input: createUserInput!): User!
+    updateUser(input: updateUserInput!): User!
     deleteUser(id: ID!): User
 
     addCard(input: addCardInput): Card!
