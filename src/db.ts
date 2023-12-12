@@ -1,14 +1,16 @@
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongoose from 'mongoose';
 
-const MONGODB_URI = 'uri';
+const MONGODB_URI = 'mongodb+srv://masteringthecode:woragis2004@cluster0.lvar0nb.mongodb.net/?retryWrites=true&w=majority';
 
-mongoose.connect(MONGODB_URI);
+const connectDatabase = async () => {
+  mongoose.connect(MONGODB_URI);
 
-const db = mongoose.connection;
+  const database = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+  database.on('error', console.error.bind(console, 'MongoDB connection error:'));
+  database.once('open', () => {
+    console.log('Connected to MongoDB');
+  });
+};
 
-export default db;
+export default connectDatabase;

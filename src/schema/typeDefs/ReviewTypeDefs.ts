@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server-express';
+import { buildSchema } from 'graphql';
 
-export const reviewTypeDefs = gql`
+export const reviewTypeDefs = buildSchema(`#graphql
   type Query {
     reviews: [Review]!
     review(id: ID!): Review!
@@ -31,4 +31,4 @@ export const reviewTypeDefs = gql`
     rating: Number
     comment: String
   }
-`;
+`);

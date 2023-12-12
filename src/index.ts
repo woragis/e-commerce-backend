@@ -1,3 +1,9 @@
 import server from './server';
+import connectDatabase from './db';
 
-server.listen(8001);
+let port = 3002;
+
+server.listen(port, () => {
+  console.log('Express Server Running on port ' + port);
+  connectDatabase();
+});

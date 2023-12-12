@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server-express';
+import { buildSchema } from 'graphql';
 
-export const productTypeDefs = gql`
+export const productTypeDefs = buildSchema(`#graphql
   type Query {
     products: [Product!]!
     product: Product!
@@ -65,4 +65,4 @@ export const productTypeDefs = gql`
     imageUrls: [String]!
     quantity: Number
   }
-`;
+`);
