@@ -1,15 +1,13 @@
-import express, { Application, NextFunction, Request, Response, request } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { typeDefs, resolvers } from './schema/schemas';
+import schema from './schema/schemas';
 import session from 'express-session';
 import { createClient } from 'redis';
 import connectRedis from 'connect-redis';
 import { GraphqlContext } from './types/Server.type';
 
 const server: Application = express();
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 server.use(cors());
 

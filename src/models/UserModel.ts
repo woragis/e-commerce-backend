@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 import { User, CardPaymentMethod, PaypalPaymentMethod, UserAddress } from '../types/User.type';
-import { reviewSchema } from './ReviewModel';
+import { ReviewSchema } from './ReviewModel';
 
 interface UserDocument extends User, Omit<Document, '_id'> {}
 
@@ -27,11 +27,13 @@ const userAddressSchema = new Schema<UserAddress>({
 });
 
 const userSchema = new Schema<UserDocument>({
+  name: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  cards: [cardSchema],
-  addresses: [userAddressSchema],
-  reviews: [reviewSchema],
+  cards: [{ type: cardSchema, required: false }],
+  addresses: [{ type: userAddressSchema, required: false }],
+  reviews: [{ type: ReviewSchema, required: false }],
 });
 
 const UserModel = model<UserDocument>('User', userSchema);
