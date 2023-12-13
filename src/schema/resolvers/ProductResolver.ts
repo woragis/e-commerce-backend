@@ -66,20 +66,20 @@ const productResolvers = {
     },
   },
   Product: {
-    reviews: async (parent: GraphqlParent, args: SearchOptions) => {
+    productReviews: async (parent: GraphqlParent, args: SearchOptions) => {
       const reviews = await ReviewModel.find({ product: parent._id } as Review)
         .skip(args.offset)
         .limit(args.limit);
       return reviews;
     },
-    review: async (parent: GraphqlParent, args: readReview) => {
+    productReview: async (parent: GraphqlParent, args: readReview) => {
       const review = await ReviewModel.findOne({ _id: args._id, product: parent._id } as Review);
       return review;
     },
     // maybe they are useless here
-    addReview: async () => {},
-    editReview: async () => {},
-    deleteReview: async () => {},
+    productAddReview: async () => {},
+    productEditReview: async () => {},
+    productDeleteReview: async () => {},
   },
 };
 

@@ -9,6 +9,12 @@ type Product {
   imageUrls: [String!]!
   quantity: Int!
   reviews: [Review]!
+
+  productReviews(input: SearchInput!): [Review]!
+  productReview(_id: ID!): Review!
+  productAddReview(input: addReviewInput!): Review!
+  productEditReview(input: editReviewInput!): Review!
+  productDeleteReview(_id: ID!): Review
 }
 
 type Specs {

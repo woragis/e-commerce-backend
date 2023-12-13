@@ -18,40 +18,40 @@ import productResolvers from './resolvers/ProductResolver';
 const typeDefs = buildSchema(`#graphql
   type Query {
     products(input: SearchInput!): [Product!]!
-    product(id: ID!): Product!
+    product(_id: ID!): Product!
 
-    reviews: [Review]!
-    review(id: ID!): Review!
+    reviews(input: SearchInput!): [Review]!
+    review(_id: ID!): Review!
 
     users(input: SearchInput!): [User!]!
-    user(id: ID!): User
+    user(_id: ID!): User
     cards: [Card]!
-    card(id: ID!): Card!
+    card(_id: ID!): Card!
     addresses: [Address]!
-    address(id: ID!): Address!
+    address(_id: ID!): Address!
 
   }
 
   type Mutation {
     addProduct(input: addProductInput!): Product!
     editProduct(input: editProductInput!): Product!
-    deleteProduct(id: ID!): Product
+    deleteProduct(_id: ID!): Product
 
     addReview(input: addReviewInput!): Review!
     editReview(input: editReviewInput!): Review!
-    deleteReview(id: ID!): Review
+    deleteReview(_id: ID!): Review
 
     createUser(input: createUserInput!): User!
     updateUser(input: updateUserInput!): User!
-    deleteUser(id: ID!): User
+    deleteUser(_id: ID!): User
 
     addCard(input: addCardInput!): Card!
     editCard(input: editCardInput!): Card!
-    deleteCard(id: ID!): Card
+    deleteCard(_id: ID!): Card
 
     addAddress(input: addAddressInput!): Address!
     editAddress(input: editAddressInput!): Address!
-    deleteAddress(id: ID!): Address
+    deleteAddress(_id: ID!): Address
   }
 
   ${commonTypeDefs}
@@ -67,10 +67,3 @@ export { typeDefs, resolvers };
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 export default schema;
-
-// import commonTypes from './typeDefs/commonTypes';
-// import reviewTypeDefs from './typeDefs/ReviewTypeDefs';
-// import userTypeDefs from './typeDefs/UserTypeDefs';
-// import productTypeDefs from './typeDefs/ProductTypeDefs';
-
-// const typeDefs = mergeTypes([commonTypes, reviewTypeDefs, userTypeDefs, productTypeDefs]);
