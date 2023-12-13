@@ -35,6 +35,7 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  admin: boolean;
   cards: CardPaymentMethod[];
   addresses: UserAddress[];
   reviews: Review[];
@@ -49,6 +50,7 @@ export interface createUserResolverArgs {
   username: string;
   email: string;
   password: string;
+  admin: boolean;
 }
 
 export interface updateUserResolverArgs {
@@ -57,6 +59,7 @@ export interface updateUserResolverArgs {
   username: string;
   email: string;
   password: string;
+  admin: boolean;
   cards: CardPaymentMethod[];
   addresses: UserAddress[];
 }
