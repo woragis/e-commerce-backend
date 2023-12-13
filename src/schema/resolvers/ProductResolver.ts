@@ -11,7 +11,7 @@ const productResolvers = {
       return products;
     },
     product: async (parent: any, args: readProductArgs) => {
-      const product = await ProductModel.findById(args.id);
+      const product = await ProductModel.findById(args._id);
       return product;
     },
   },
@@ -35,7 +35,7 @@ const productResolvers = {
         });
     },
     editProduct: async (parent: any, args: editProductArgs) => {
-      const editedProduct = await ProductModel.findByIdAndUpdate(args.id, {
+      const editedProduct = await ProductModel.findByIdAndUpdate(args._id, {
         name: args.name,
         price: args.price,
         discount: args.discount,
@@ -59,7 +59,7 @@ const productResolvers = {
       }
     },
     deleteProduct: async (parent: any, args: deleteProductArgs) => {
-      const deletedProduct = await ProductModel.findByIdAndDelete(args.id);
+      const deletedProduct = await ProductModel.findByIdAndDelete(args._id);
       if (deletedProduct.ok) {
         return 'ok';
       }
@@ -67,13 +67,13 @@ const productResolvers = {
   },
   Product: {
     reviews: async (parent: GraphqlParent, args: SearchOptions) => {
-      const reviews = await ReviewModel.find({ product: parent.id } as Review)
+      const reviews = await ReviewModel.find({ product: parent._id } as Review)
         .skip(args.offset)
         .limit(args.limit);
       return reviews;
     },
     review: async (parent: GraphqlParent, args: readReview) => {
-      const review = await ReviewModel.findOne({ _id: args.id, product: parent.id } as Review);
+      const review = await ReviewModel.findOne({ _id: args._id, product: parent._id } as Review);
       return review;
     },
     // maybe they are useless here

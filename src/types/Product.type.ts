@@ -24,7 +24,7 @@ export interface ProductSpecs {
 }
 
 export interface readProductArgs {
-  id: string;
+  _id: Types.ObjectId;
 }
 
 export interface addProductArgs {
@@ -37,7 +37,7 @@ export interface addProductArgs {
 }
 
 export interface editProductArgs {
-  id: string;
+  _id: Types.ObjectId;
   name?: string;
   price?: number;
   discount?: boolean;
@@ -49,5 +49,5 @@ export interface editProductArgs {
 }
 
 export interface deleteProductArgs {
-  id: string;
+  _id: Types.ObjectId;
 }

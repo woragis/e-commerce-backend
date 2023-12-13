@@ -1,6 +1,6 @@
 import { buildSchema } from 'graphql';
 
-export const reviewTypeDefs = buildSchema(`#graphql
+const reviewTypeDefs = buildSchema(`#graphql
   type Query {
     reviews: [Review]!
     review(id: ID!): Review!
@@ -12,23 +12,27 @@ export const reviewTypeDefs = buildSchema(`#graphql
   }
 
   type Review {
+    _id: ID!
     userId: ID!
     productId: ID!
-    rating: Number!
+    rating: Int!
     comment: String!
   }
 
   input addReviewInput {
     userId: ID!
     productId: ID!
-    rating: Number!
+    rating: Int!
     comment: String!
   }
 
   input editReviewInput {
+    _id: ID!
     userId: ID
     productId: ID
-    rating: Number
+    rating: Int
     comment: String
   }
 `);
+
+export default reviewTypeDefs;

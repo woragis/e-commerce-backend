@@ -1,7 +1,7 @@
 import ReviewModel from '../../models/ReviewModel';
 import UserModel from '../../models/UserModel';
 import { Review } from '../../types/Review.type';
-import { SearchOptions } from '../../types/Server.type';
+import { GraphqlParent, SearchOptions } from '../../types/Server.type';
 import { createUserResolverArgs, readUserResolverArgs, updateUserResolverArgs, deleteUserResolverArgs } from '../../types/User.type';
 
 const userResolvers = {
@@ -15,7 +15,7 @@ const userResolvers = {
       if (context.session.user.userId == null) {
         return { message: 'not allowed' };
       }
-      const user = await UserModel.findById(args.id);
+      const user = await UserModel.findById(args._id);
       return user;
     },
   },
@@ -27,19 +27,19 @@ const userResolvers = {
     },
     updateUser: async (parent: any, args: updateUserResolverArgs) => {
       const updatedUser = await UserModel.updateOne(
-        { id: args.id },
+        { id: args._id },
         { email: args.email, password: args.password, cards: args.cards, addresses: args.addresses }
       );
       return updatedUser;
     },
     deleteUser: async (parent: any, args: deleteUserResolverArgs) => {
-      const deletedUser = await UserModel.deleteOne({ id: args.id });
+      const deletedUser = await UserModel.deleteOne({ _id: args._id });
       return deletedUser;
     },
   },
   User: {
-    reviews: async (parent: any, args: SearchOptions) => {
-      const reviews = await ReviewModel.find({ user: parent.id } as Review)
+    reviews: async (parent: GraphqlParent, args: SearchOptions) => {
+      const reviews = await ReviewModel.find({ user: parent._id } as Review)
         .skip(args.offset)
         .limit(args.limit);
       return reviews;

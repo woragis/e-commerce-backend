@@ -31,6 +31,8 @@ export interface PaypalPaymentMethod {
 
 export interface User {
   _id: Types.ObjectId;
+  name: string;
+  username: string;
   email: string;
   password: string;
   cards: CardPaymentMethod[];
@@ -39,7 +41,7 @@ export interface User {
 }
 
 export interface readUserResolverArgs {
-  id: string;
+  _id: Types.ObjectId;
 }
 
 export interface createUserResolverArgs {
@@ -48,7 +50,7 @@ export interface createUserResolverArgs {
 }
 
 export interface updateUserResolverArgs {
-  id: string;
+  _id: Types.ObjectId;
   email: string;
   password: string;
   cards: CardPaymentMethod[];
@@ -56,5 +58,5 @@ export interface updateUserResolverArgs {
 }
 
 export interface deleteUserResolverArgs {
-  id: string;
+  _id: Types.ObjectId;
 }

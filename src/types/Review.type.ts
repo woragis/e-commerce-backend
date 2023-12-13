@@ -11,5 +11,5 @@ export interface Review {
 }
 
 export interface readReview {
-  id: Types.ObjectId;
+  _id: Types.ObjectId;
 }

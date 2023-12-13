@@ -13,57 +13,62 @@ const productTypeDefs = buildSchema(`#graphql
   }
 
   type Product {
+    _id: ID!
     name: String!
-    price: Number!
-    discount: Number
+    price: Float!
+    discount: Boolean! = false
+    discount_price: Float! = 0
     description: String!
-    technicalInfo: TechnicalInfo!
+    specs: Specs!
     imageUrls: [String!]!
-    quantity: Number!
-    reviews: [Review!]!
+    quantity: Int!
+    reviews: [Review]! = []
   }
 
-  type TechnicalInfo {
-    weight: Number!
+  type Specs {
+    weight: Float!
     dimensions: {
-      height: Number!
-      width: Number!
-      depth: Number!
+      height: Float!
+      width: Float!
+      depth: Float!
     }
   }
 
   input addProductInput {
     name: String!
-    price: Number!
-    discount: Number
+    price: Float!
+    discount: Boolean = false
+    discount_price: Float = 0
     description: String!
-    technicalInfo: {
-      weight: Number!
+    specs: {
+      weight: Float!
       dimensions: {
-        height: Number!
-        width: Number!
-        depth: Number!
+        height: Float!
+        width: Float!
+        depth: Float!
       }
     }
     imageUrls: [String!]!
-    quantity: Number!
+    quantity: Int!
   }
 
   input editProductInput {
+    _id: ID!
     name: String
-    price: Number
-    discount: Number
+    price: Float
+    discount: Boolean = false
+    discount_price: Float = 0
     description: String
-    technicalInfo: {
-      weight: Number
+    specs: {
+      weight: Float
       dimensions: {
-        height: Number
-        width: Number
-        depth: Number
+        height: Float
+        width: Float
+        depth: Float
       }
     }
-    imageUrls: [String]!
-    quantity: Number
+    imageUrls: [String]
+    quantity: Int
   }
 `);
 

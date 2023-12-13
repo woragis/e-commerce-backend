@@ -17,25 +17,28 @@ const userTypeDefs = buildSchema(`#graphql
     updateUser(input: updateUserInput!): User!
     deleteUser(id: ID!): User
 
-    addCard(input: addCardInput): Card!
-    editCard(input: editCardInput): Card!
+    addCard(input: addCardInput!): Card!
+    editCard(input: editCardInput!): Card!
     deleteCard(id: ID!): Card
 
-    addAddress(input: addAddressInput): Address!
-    editAddress(input: editAddressInput): Address!
+    addAddress(input: addAddressInput!): Address!
+    editAddress(input: editAddressInput!): Address!
     deleteAddress(id: ID!): Address
   }
-
+  
   type User {
-    id: ID!
+    _id: ID!
+    name: String!
+    username: String!
     email: String!
     password: String!
     cards: [Card]
     addresses: [Address]
+    reviews: [Review]
   }
 
   type Card {
-    id: ID!
+    _id: ID!
     cardholderName: String!
     cardNumber: String!
     expirationDate: String!
@@ -43,7 +46,7 @@ const userTypeDefs = buildSchema(`#graphql
   }
 
   type Address {
-    id: ID!
+    _id: ID!
     state: String!
     city: String!
     cep: String!
@@ -54,11 +57,17 @@ const userTypeDefs = buildSchema(`#graphql
   }
 
   input createUserInput {
+    _id: ID!
+    name: String!
+    username: String!
     email: String!
     password: String!
   }
 
   input updateUserInput {
+    _id: ID!
+    name: String
+    username: String
     email: String
     password: String
   }
@@ -71,6 +80,7 @@ const userTypeDefs = buildSchema(`#graphql
   }
 
   input editCardInput {
+    _id: ID!
     cardholderName: String
     cardNumber: String
     expirationDate: String
@@ -88,6 +98,7 @@ const userTypeDefs = buildSchema(`#graphql
   }
 
   input editAddressInput {
+    _id: ID!
     state: String
     city: String
     cep: String

@@ -6,7 +6,7 @@ export interface GraphqlContext {
 }
 
 export interface GraphqlParent {
-  id: Types.ObjectId;
+  _id: Types.ObjectId;
 }
 
 export interface SearchOptions {
