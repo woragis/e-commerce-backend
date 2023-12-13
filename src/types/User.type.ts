@@ -45,12 +45,16 @@ export interface readUserResolverArgs {
 }
 
 export interface createUserResolverArgs {
+  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 export interface updateUserResolverArgs {
   _id: Types.ObjectId;
+  name: string;
+  username: string;
   email: string;
   password: string;
   cards: CardPaymentMethod[];
