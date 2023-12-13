@@ -21,14 +21,14 @@ const userResolvers = {
   },
   Mutation: {
     createUser: async (parent: any, args: createUserResolverArgs) => {
-      const newUser = new UserModel({ email: args.email, password: args.email });
+      const newUser = new UserModel({ name: args.name, username: args.username, email: args.email, password: args.email });
       await newUser.save();
       return newUser;
     },
     updateUser: async (parent: any, args: updateUserResolverArgs) => {
       const updatedUser = await UserModel.updateOne(
         { id: args._id },
-        { email: args.email, password: args.password, cards: args.cards, addresses: args.addresses }
+        { name: args.name, username: args.username, email: args.email, password: args.password, cards: args.cards, addresses: args.addresses }
       );
       return updatedUser;
     },
