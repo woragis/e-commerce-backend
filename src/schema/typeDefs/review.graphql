@@ -1,0 +1,22 @@
+type Review {
+  _id: ID!
+  userId: ID!
+  productId: ID!
+  rating: Int!
+  comment: String!
+}
+
+input addReviewInput {
+  userId: ID!
+  productId: ID!
+  rating: Int!
+  comment: String!
+}
+
+input editReviewInput {
+  _id: ID!
+  userId: ID
+  productId: ID
+  rating: Int
+  comment: String
+}

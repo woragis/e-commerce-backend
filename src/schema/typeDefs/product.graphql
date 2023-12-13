@@ -1,0 +1,68 @@
+type Product {
+  _id: ID!
+  name: String!
+  price: Float!
+  discount: Boolean!
+  discount_price: Float!
+  description: String!
+  specs: Specs!
+  imageUrls: [String!]!
+  quantity: Int!
+  reviews: [Review]!
+}
+
+type Specs {
+  weight: Float!
+  dimensions: Dimensions!
+}
+
+type Dimensions {
+  height: Float!
+  width: Float!
+  depth: Float!
+}
+
+input addProductInput {
+  name: String!
+  price: Float!
+  discount: Boolean = false
+  discount_price: Float = 0
+  description: String!
+  specs: addSpecsInput!
+  imageUrls: [String!]!
+  quantity: Int!
+}
+
+input addSpecsInput {
+  weight: Float!
+  dimensions: addSpecsDimensionsInput!
+}
+
+input addSpecsDimensionsInput {
+  height: Float!
+  width: Float!
+  depth: Float!
+}
+
+input editProductInput {
+  _id: ID!
+  name: String
+  price: Float
+  discount: Boolean = false
+  discount_price: Float = 0
+  description: String
+  specs: editSpecsInput
+  imageUrls: [String]
+  quantity: Int
+}
+
+input editSpecsInput {
+  weight: Float
+  dimensions: editSpecsDimensionsInput
+}
+
+input editSpecsDimensionsInput {
+  height: Float
+  width: Float
+  depth: Float
+}

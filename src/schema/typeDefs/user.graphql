@@ -1,0 +1,80 @@
+type User {
+  _id: ID!
+  name: String!
+  username: String!
+  email: String!
+  password: String!
+  cards: [Card]
+  addresses: [Address]
+  reviews: [Review]
+}
+
+type Card {
+  _id: ID!
+  cardholderName: String!
+  cardNumber: String!
+  expirationDate: String!
+  cvv: String!
+}
+
+type Address {
+  _id: ID!
+  state: String!
+  city: String!
+  cep: String!
+  neighborhood: String!
+  street: String!
+  number: String!
+  reference: String!
+}
+
+input createUserInput {
+  name: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+input updateUserInput {
+  _id: ID!
+  name: String
+  username: String
+  email: String
+  password: String
+}
+
+input addCardInput {
+  cardholderName: String!
+  cardNumber: String!
+  expirationDate: String!
+  cvv: String!
+}
+
+input editCardInput {
+  _id: ID!
+  cardholderName: String
+  cardNumber: String
+  expirationDate: String
+  cvv: String
+}
+
+input addAddressInput {
+  state: String!
+  city: String!
+  cep: String!
+  neighborhood: String!
+  street: String!
+  number: String!
+  reference: String!
+}
+
+input editAddressInput {
+  _id: ID!
+  state: String
+  city: String
+  cep: String
+  neighborhood: String
+  street: String
+  number: String
+  reference: String
+}

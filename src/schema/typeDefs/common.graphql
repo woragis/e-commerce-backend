@@ -1,0 +1,4 @@
+input SearchInput {
+  offset: Int! = 0
+  limit: Int! = 10
+}
