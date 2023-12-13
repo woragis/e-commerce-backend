@@ -57,13 +57,7 @@ app.use(
   })
 );
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  if (!req.session.user) {
-    req.session.user = {
-      userId: null,
-      admin: false,
-    };
-  }
-});
+import authenticationRoute from './routes/authenticationRoute';
+app.use('/user', authenticationRoute);
 
 export default app;
