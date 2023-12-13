@@ -4,9 +4,9 @@
   "description": "Backend for e-commerce portfolio project",
   "main": "index.js",
   "scripts": {
-    "dev": "clear && nodemon src/index.ts",
-    "test": "jest",
-    "build": "ts-node src/index.ts"
+    "dev": "NODE_ENV=development nodemon src/index.ts",
+    "test": "NODE_ENV=test jest",
+    "build": "NODE_ENV=production ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/woragis/e-commerce-backend#readme",
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
+    "bcrypt": "^5.1.1",
     "connect-redis": "^7.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -33,6 +34,7 @@
     "redis": "^4.6.11"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/connect-redis": "^0.0.23",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",

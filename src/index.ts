@@ -1,9 +1,12 @@
 import app from './app';
 import connectDatabase from './db';
+import dotenv from 'dotenv';
+const env: string = process.env.NODE_ENV || 'development';
+dotenv.config({ path: 'src/config/.env.' + env });
 
-let port = 3002;
+const PORT = process.env.PORT;
 
-app.listen(port, () => {
-  console.log('Express Server Running on port ' + port);
+app.listen(PORT, () => {
+  console.log('Express Server Running on port ' + PORT);
   connectDatabase();
 });
