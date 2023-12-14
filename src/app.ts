@@ -24,6 +24,9 @@ app.use(
 
 app.use(session(sessionOptions));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use('/user', authenticationRoute);
 
 export default app;
