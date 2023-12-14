@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node", "express", "jest"],
+    "types": ["node", "express", "express-session", "jest"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "target": "es2016",
     "module": "commonjs",

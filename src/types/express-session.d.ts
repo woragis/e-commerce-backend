@@ -1,10 +1,10 @@
-import 'express-session';
+import { SessionData } from 'express-session';
 import { Types } from 'mongoose';
 
 declare module 'express-session' {
   interface SessionData {
     user: {
-      userId: Types.ObjectId | null;
+      _id: Types.ObjectId | null;
       admin: boolean;
     };
   }
