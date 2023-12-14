@@ -1,5 +1,5 @@
 import ProductModel from '../../models/ProductModel';
-import { GraphqlParent, SearchOptions } from '../../types/Server.type';
+import { GraphqlContext, GraphqlParent, SearchOptions } from '../../types/Server.type';
 import { addProductArgs, deleteProductArgs, editProductArgs, readProductArgs } from '../../types/Product.type';
 import { Review, readReview } from '../../types/Review.type';
 import ReviewModel from '../../models/ReviewModel';
@@ -20,19 +20,23 @@ const productResolvers = {
       const newProduct = new ProductModel<addProductArgs>({
         name: args.name,
         price: args.price,
+        discount: args.discount,
+        discount_price: args.discount_price,
+        quantity: args.quantity,
         description: args.description,
         images: args.images,
-        quantity: args.quantity,
         specs: args.specs,
-      });
-      newProduct
-        .save()
-        .then(savedProduct => {
-          return savedProduct;
-        })
-        .catch((error: any) => {
-          console.error('Error saving product ' + error);
-        });
+      }).save();
+      // await newProduct.save();
+      return newProduct;
+      // newProduct
+      //   .save()
+      //   .then(savedProduct => {
+      //     return savedProduct;
+      //   })
+      //   .catch((error: any) => {
+      //     console.error('Error saving product ' + error);
+      //   });
     },
     editProduct: async (parent: any, args: editProductArgs) => {
       const editedProduct = await ProductModel.findByIdAndUpdate(args._id, {
@@ -40,10 +44,10 @@ const productResolvers = {
         price: args.price,
         discount: args.discount,
         discount_price: args.discount_price,
-        description: args.description,
-        specs: args.specs,
-        images: args.images,
         quantity: args.quantity,
+        description: args.description,
+        images: args.images,
+        specs: args.specs,
       });
       if (editedProduct) {
         editedProduct
@@ -67,13 +71,13 @@ const productResolvers = {
   },
   Product: {
     productReviews: async (parent: GraphqlParent, args: SearchOptions) => {
-      const reviews = await ReviewModel.find({ product: parent._id } as Review)
+      const reviews = await ReviewModel.find({ product_id: parent._id } as Review)
         .skip(args.offset)
         .limit(args.limit);
       return reviews;
     },
     productReview: async (parent: GraphqlParent, args: readReview) => {
-      const review = await ReviewModel.findOne({ _id: args._id, product: parent._id } as Review);
+      const review = await ReviewModel.findOne({ _id: args._id, product_id: parent._id } as Review);
       return review;
     },
     // maybe they are useless here

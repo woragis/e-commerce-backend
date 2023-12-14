@@ -4,16 +4,16 @@ type Product {
   price: Float!
   discount: Boolean!
   discount_price: Float!
+  quantity: Int!
   description: String!
   specs: Specs!
-  imageUrls: [String!]!
-  quantity: Int!
+  images: [String!]!
   reviews: [Review]!
 
   productReviews(input: SearchInput!): [Review]!
   productReview(_id: ID!): Review!
-  productAddReview(input: addReviewInput!): Review!
-  productEditReview(input: editReviewInput!): Review!
+  productAddReview(input: AddReviewInput!): Review!
+  productEditReview(input: EditReviewInput!): Review!
   productDeleteReview(_id: ID!): Review
 }
 
@@ -28,46 +28,46 @@ type Dimensions {
   depth: Float!
 }
 
-input addProductInput {
+input AddProductInput {
   name: String!
   price: Float!
   discount: Boolean = false
   discount_price: Float = 0
-  description: String!
-  specs: addSpecsInput!
-  imageUrls: [String!]!
   quantity: Int!
+  description: String!
+  images: [String!]!
+  specs: AddSpecsInput!
 }
 
-input addSpecsInput {
+input AddSpecsInput {
   weight: Float!
-  dimensions: addSpecsDimensionsInput!
+  dimensions: AddSpecsDimensionsInput!
 }
 
-input addSpecsDimensionsInput {
+input AddSpecsDimensionsInput {
   height: Float!
   width: Float!
   depth: Float!
 }
 
-input editProductInput {
+input EditProductInput {
   _id: ID!
   name: String
   price: Float
   discount: Boolean = false
   discount_price: Float = 0
-  description: String
-  specs: editSpecsInput
-  imageUrls: [String]
   quantity: Int
+  description: String
+  images: [String]
+  specs: EditSpecsInput
 }
 
-input editSpecsInput {
+input EditSpecsInput {
   weight: Float
-  dimensions: editSpecsDimensionsInput
+  dimensions: EditSpecsDimensionsInput
 }
 
-input editSpecsDimensionsInput {
+input EditSpecsDimensionsInput {
   height: Float
   width: Float
   depth: Float

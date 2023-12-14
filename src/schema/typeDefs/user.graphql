@@ -4,9 +4,22 @@ type User {
   username: String!
   email: String!
   password: String!
+  admin: Boolean!
   cards: [Card]
   addresses: [Address]
   reviews: [Review]
+
+  userCards(input: SearchInput!): [Card]!
+  userCard(_id: ID!): Card!
+  userAddCard(input: AddCardInput!): Card!
+  userEditCard(input: EditCardInput!): Card!
+  userDeleteCard(_id: ID!): Card
+
+  userAddresses(input: SearchInput!): [Address]!
+  userAddress(_id: ID!): Address!
+  userAddAddress(input: AddAddressInput!): Address!
+  userEditAddress(input: EditAddressInput!): Address!
+  userDeleteAddress(_id: ID!): Address
 }
 
 type Card {
@@ -28,29 +41,31 @@ type Address {
   reference: String!
 }
 
-input createUserInput {
+input CreateUserInput {
   name: String!
   username: String!
   email: String!
   password: String!
+  admin: Boolean!
 }
 
-input updateUserInput {
+input UpdateUserInput {
   _id: ID!
   name: String
   username: String
   email: String
   password: String
+  admin: Boolean
 }
 
-input addCardInput {
+input AddCardInput {
   cardholderName: String!
   cardNumber: String!
   expirationDate: String!
   cvv: String!
 }
 
-input editCardInput {
+input EditCardInput {
   _id: ID!
   cardholderName: String
   cardNumber: String
@@ -58,7 +73,7 @@ input editCardInput {
   cvv: String
 }
 
-input addAddressInput {
+input AddAddressInput {
   state: String!
   city: String!
   cep: String!
@@ -68,7 +83,7 @@ input addAddressInput {
   reference: String!
 }
 
-input editAddressInput {
+input EditAddressInput {
   _id: ID!
   state: String
   city: String

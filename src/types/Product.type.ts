@@ -9,9 +9,9 @@ export interface Product {
   discount_price: number;
   quantity: number;
   description: string;
+  images: string[];
   specs: ProductSpecs;
   reviews: Review[];
-  images: string[];
 }
 
 export interface ProductSpecs {
@@ -30,10 +30,12 @@ export interface readProductArgs {
 export interface addProductArgs {
   name: string;
   price: number;
-  description: string;
-  specs: ProductSpecs;
-  images: string[];
+  discount?: boolean;
+  discount_price?: number;
   quantity: number;
+  description: string;
+  images: string[];
+  specs: ProductSpecs;
 }
 
 export interface editProductArgs {
@@ -42,10 +44,10 @@ export interface editProductArgs {
   price?: number;
   discount?: boolean;
   discount_price?: number;
-  description?: string;
-  specs?: ProductSpecs;
-  images?: string[];
   quantity?: number;
+  description?: string;
+  images?: string[];
+  specs?: ProductSpecs;
 }
 
 export interface deleteProductArgs {

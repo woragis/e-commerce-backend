@@ -1,6 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
 import { Product } from '../types/Product.type';
-import { ReviewSchema } from './ReviewModel';
 
 interface ProductDocument extends Product, Omit<Document, '_id'> {}
 
@@ -19,8 +18,8 @@ const ProductSchema = new Schema<ProductDocument>({
       depth: { type: Number },
     },
   },
-  reviews: [ReviewSchema],
   images: [{ type: String, required: true }],
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', required: false }],
 });
 
 const ProductModel = model<ProductDocument>('Product', ProductSchema);

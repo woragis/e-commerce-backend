@@ -6,14 +6,14 @@ type Review {
   comment: String!
 }
 
-input addReviewInput {
+input AddReviewInput {
   userId: ID!
   productId: ID!
   rating: Int!
   comment: String!
 }
 
-input editReviewInput {
+input EditReviewInput {
   _id: ID!
   userId: ID
   productId: ID

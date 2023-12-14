@@ -4,8 +4,8 @@ import { Types } from 'mongoose';
 
 export interface Review {
   _id: Types.ObjectId;
-  user: User['_id'];
-  product: Product['_id'];
+  user_id: User['_id'];
+  product_id: Product['_id'];
   rating: number;
   comment: string;
 }

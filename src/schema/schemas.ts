@@ -33,24 +33,24 @@ const typeDefs = buildSchema(`#graphql
   }
 
   type Mutation {
-    addProduct(input: addProductInput!): Product!
-    editProduct(input: editProductInput!): Product!
+    addProduct(input: AddProductInput!): Product!
+    editProduct(input: EditProductInput!): Product!
     deleteProduct(_id: ID!): Product
 
-    addReview(input: addReviewInput!): Review!
-    editReview(input: editReviewInput!): Review!
+    addReview(input: AddReviewInput!): Review!
+    editReview(input: EditReviewInput!): Review!
     deleteReview(_id: ID!): Review
 
-    createUser(input: createUserInput!): User!
-    updateUser(input: updateUserInput!): User!
+    createUser(input: CreateUserInput!): User!
+    updateUser(input: UpdateUserInput!): User!
     deleteUser(_id: ID!): User
 
-    addCard(input: addCardInput!): Card!
-    editCard(input: editCardInput!): Card!
+    addCard(input: AddCardInput!): Card!
+    editCard(input: EditCardInput!): Card!
     deleteCard(_id: ID!): Card
 
-    addAddress(input: addAddressInput!): Address!
-    editAddress(input: editAddressInput!): Address!
+    addAddress(input: AddAddressInput!): Address!
+    editAddress(input: EditAddressInput!): Address!
     deleteAddress(_id: ID!): Address
   }
 
