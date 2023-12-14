@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-const env: string = process.env.NODE_ENV || 'development';
-dotenv.config({ path: 'src/config/.env.' + env });
+const env: string = process.env.NODE_ENV || 'dev';
+dotenv.config({ path: __dirname + '/.env.' + env });
 import { createClient } from 'redis';
 import connectRedis from 'connect-redis';
 

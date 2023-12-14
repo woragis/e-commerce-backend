@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+const env: string = process.env.NODE_ENV || 'dev';
+dotenv.config({ path: __dirname + '/config/.env.' + env });
 
-const MONGODB_URI = 'mongodb+srv://masteringthecode:woragis2004@cluster0.lvar0nb.mongodb.net/?retryWrites=true&w=majority';
+const mongoUri = process.env.MONGO_DB_URI || 'mongodb+srv://masteringthecode:woragis2004@cluster0.lvar0nb.mongodb.net/?retryWrites=true&w=majority';
 
 const connectDatabase = async () => {
-  mongoose.connect(MONGODB_URI);
+  mongoose.connect(mongoUri);
 
   const database = mongoose.connection;
 

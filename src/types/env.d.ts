@@ -1,7 +1,8 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    NODE_ENV: 'development' | 'production' | 'test';
+    NODE_ENV: 'dev' | 'prod' | 'test';
     PORT: number;
+    MONGO_DB_URI: string;
     REDIS_PASSWORD: string;
     REDIS_SOCKET_HOST: string;
     REDIS_SOCKET_PORT: number;

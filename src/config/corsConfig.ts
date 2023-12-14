@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
-const env: string = process.env.NODE_ENV || 'development';
-dotenv.config({ path: 'src/config/.env.' + env });
+const env: string = process.env.NODE_ENV || 'dev';
+dotenv.config({ path: __dirname + '/.env.' + env });
 import { CorsOptions } from 'cors';
 
 const corsOptions: CorsOptions = {
-  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [],
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : 'http://localhost:5000',
   allowedHeaders: process.env.CORS_ALLOWED_HEADERS ? process.env.CORS_ALLOWED_HEADERS.split(',') : [],
   credentials: Boolean(process.env.CORS_CREDENTIALS) || true,
   exposedHeaders: process.env.CORS_EXPOSED_HEADERS ? process.env.CORS_EXPOSED_HEADERS.split(',') : [],
