@@ -10,6 +10,18 @@ export interface Review {
   comment: string;
 }
 
-export interface readReview {
+export interface readReviewArgs {
+  _id: Types.ObjectId;
+}
+
+export interface addReviewArgs {
+  input: { user_id: User['_id']; product_id: Product['_id']; rating: number; comment: string };
+}
+
+export interface editReviewArgs {
+  input: { _id: Types.ObjectId; user_id?: User['_id']; product_id?: Product['_id']; rating?: number; comment?: string };
+}
+
+export interface deleteReviewArgs {
   _id: Types.ObjectId;
 }
