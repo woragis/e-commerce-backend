@@ -23,7 +23,6 @@ const userResolvers = {
   Mutation: {
     createUser: async (parent: any, args: createUserResolverArgs) => {
       try {
-        console.log(args.input.name, args.input.username, args.input.email, args.input.password, args.input.admin);
         const salt = await genSalt(12);
         const encryptedPassword = await hash(args.input.password, salt);
         const newUser = new UserModel({
@@ -37,14 +36,6 @@ const userResolvers = {
         });
         await newUser.save();
         return newUser;
-        newUser
-          .save()
-          .then(savedUser => {
-            return savedUser;
-          })
-          .catch(reason => {
-            return reason;
-          });
       } catch (error) {
         console.error('Error creating user ' + error);
         return error;
@@ -52,19 +43,15 @@ const userResolvers = {
     },
     updateUser: async (parent: any, args: updateUserResolverArgs) => {
       const encryptedPassword = await hash(args.input.password, 12);
-      const updatedUser = await UserModel.updateOne(
-        { _id: args.input._id },
-        {
-          name: args.input.name,
-          username: args.input.username,
-          email: args.input.email,
-          password: encryptedPassword,
-          admin: args.input.admin,
-          cards: args.input.cards,
-          addresses: args.input.addresses,
-        }
-      );
-      console.log(updatedUser);
+      const updatedUser = await UserModel.findByIdAndUpdate(args.input._id, {
+        name: args.input.name,
+        username: args.input.username,
+        email: args.input.email,
+        password: encryptedPassword,
+        admin: args.input.admin,
+        cards: args.input.cards,
+        addresses: args.input.addresses,
+      });
       return updatedUser;
     },
     deleteUser: async (parent: any, { _id }: deleteUserResolverArgs) => {
