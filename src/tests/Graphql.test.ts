@@ -1,5 +1,5 @@
 import { graphql } from 'graphql';
-import schema from '../schema/schemas';
+import schema from '../graphql/schemas';
 
 describe('User tests', () => {
   test('Get users', async () => {});

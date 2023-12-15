@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
-import schema from './schema/schemas';
+import schema from './graphql/schemas';
 import session from 'express-session';
 import { GraphqlContext } from './types/Server.type';
 import corsOptions from './config/corsConfig';
