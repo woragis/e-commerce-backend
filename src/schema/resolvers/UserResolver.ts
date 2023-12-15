@@ -1,3 +1,4 @@
+import { genSalt, hash } from 'bcrypt';
 import AddressModel from '../../models/AddressModel';
 import CardModel from '../../models/CardModel';
 import ReviewModel from '../../models/ReviewModel';
@@ -5,39 +6,69 @@ import UserModel from '../../models/UserModel';
 import { addAddressArgs, deleteAddressArgs, editAddressArgs, readAddressArgs } from '../../types/Address.type';
 import { addCardArgs, deleteCardArgs, editCardArgs, readCardArgs } from '../../types/Card.type';
 import { Review } from '../../types/Review.type';
-import { GraphqlParent, SearchOptions } from '../../types/Server.type';
-import { createUserResolverArgs, readUserResolverArgs, updateUserResolverArgs, deleteUserResolverArgs } from '../../types/User.type';
+import { GraphqlContext, GraphqlParent, SearchOptions } from '../../types/Server.type';
+import { createUserResolverArgs, readUserResolverArgs, updateUserResolverArgs, deleteUserResolverArgs, User } from '../../types/User.type';
 
 const userResolvers = {
   Query: {
-    users: async (parent: any, args: SearchOptions) => {
-      const users = await UserModel.find().skip(args.offset).limit(args.limit);
+    users: async (parent: any, { offset, limit }: SearchOptions) => {
+      const users = await UserModel.find().skip(offset).limit(limit);
       return users;
     },
-    user: async (parent: any, args: readUserResolverArgs, context: any) => {
-      context.session;
-      if (context.session.user.userId == null) {
-        return { message: 'not allowed' };
-      }
-      const user = await UserModel.findById(args._id);
+    user: async (parent: any, { _id }: readUserResolverArgs) => {
+      const user = await UserModel.findById(_id);
       return user;
     },
   },
   Mutation: {
     createUser: async (parent: any, args: createUserResolverArgs) => {
-      const newUser = new UserModel({ name: args.name, username: args.username, email: args.email, password: args.email });
-      await newUser.save();
-      return newUser;
+      try {
+        console.log(args.input.name, args.input.username, args.input.email, args.input.password, args.input.admin);
+        const salt = await genSalt(12);
+        const encryptedPassword = await hash(args.input.password, salt);
+        const newUser = new UserModel({
+          name: args.input.name,
+          username: args.input.username,
+          email: args.input.email,
+          password: encryptedPassword,
+          admin: args.input.admin,
+          addresses: args.input.addresses,
+          cards: args.input.cards,
+        });
+        await newUser.save();
+        return newUser;
+        newUser
+          .save()
+          .then(savedUser => {
+            return savedUser;
+          })
+          .catch(reason => {
+            return reason;
+          });
+      } catch (error) {
+        console.error('Error creating user ' + error);
+        return error;
+      }
     },
     updateUser: async (parent: any, args: updateUserResolverArgs) => {
+      const encryptedPassword = await hash(args.input.password, 12);
       const updatedUser = await UserModel.updateOne(
-        { id: args._id },
-        { name: args.name, username: args.username, email: args.email, password: args.password, cards: args.cards, addresses: args.addresses }
+        { _id: args.input._id },
+        {
+          name: args.input.name,
+          username: args.input.username,
+          email: args.input.email,
+          password: encryptedPassword,
+          admin: args.input.admin,
+          cards: args.input.cards,
+          addresses: args.input.addresses,
+        }
       );
+      console.log(updatedUser);
       return updatedUser;
     },
-    deleteUser: async (parent: any, args: deleteUserResolverArgs) => {
-      const deletedUser = await UserModel.deleteOne({ _id: args._id });
+    deleteUser: async (parent: any, { _id }: deleteUserResolverArgs) => {
+      const deletedUser = await UserModel.deleteOne({ _id });
       return deletedUser;
     },
   },

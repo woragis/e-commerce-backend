@@ -14,6 +14,9 @@ const app: Application = express();
 
 app.use(cors(corsOptions));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(
   '/graphql',
   graphqlHTTP((req): { schema: any; context: GraphqlContext } => ({
@@ -23,9 +26,6 @@ app.use(
 );
 
 app.use(session(sessionOptions));
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.use('/user', authenticationRoute);
 

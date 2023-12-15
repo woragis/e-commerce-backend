@@ -1,5 +1,7 @@
 import { Types } from 'mongoose';
-import { Review } from './Review.type';
+import { Review, addReviewArgs } from './Review.type';
+import { addAddressArgs } from './Address.type';
+import { addCardArgs } from './Card.type';
 
 export interface UserAddress {
   state: string;
@@ -46,22 +48,28 @@ export interface readUserResolverArgs {
 }
 
 export interface createUserResolverArgs {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  admin: boolean;
+  input: {
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+    admin: boolean;
+    cards?: addCardArgs[];
+    addresses?: addAddressArgs[];
+  };
 }
 
 export interface updateUserResolverArgs {
-  _id: Types.ObjectId;
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  admin: boolean;
-  cards: CardPaymentMethod[];
-  addresses: UserAddress[];
+  input: {
+    _id: Types.ObjectId;
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+    admin: boolean;
+    cards: CardPaymentMethod[];
+    addresses: UserAddress[];
+  };
 }
 
 export interface deleteUserResolverArgs {

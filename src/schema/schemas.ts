@@ -33,7 +33,7 @@ const typeDefs = buildSchema(`#graphql
   }
 
   type Mutation {
-    addProduct(input: AddProductInput!): Product!
+    addProduct(input: AddProductInput!): Product
     editProduct(input: EditProductInput!): Product!
     deleteProduct(_id: ID!): Product
 
@@ -66,4 +66,5 @@ const resolvers = mergeResolvers([reviewResolvers, userResolvers, productResolve
 export { typeDefs, resolvers };
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 export default schema;
