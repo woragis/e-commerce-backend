@@ -3,10 +3,12 @@ import UserModel from '../models/UserModel';
 import { hash, compare } from 'bcrypt';
 
 const register = async (req: Request, res: Response) => {
-  const { name, username, email, password } = req.body;
+  const { name, username, email, password, admin } = req.body;
   try {
-    if (await UserModel.find({ username })) res.status(400).json({ message: 'username already taken' });
-    else if (await UserModel.find({ email })) res.status(400).json({ message: 'email already taken' });
+    const usernameTaken = await UserModel.findOne({ username });
+    const emailTaken = await UserModel.findOne({ email });
+    if (usernameTaken) res.status(400).json({ message: 'username already taken' });
+    else if (emailTaken) res.status(400).json({ message: 'email already taken' });
     else {
       const encryptedPassword = await hash(password, 12);
       const newUser = new UserModel({
@@ -14,11 +16,13 @@ const register = async (req: Request, res: Response) => {
         username,
         email,
         password: encryptedPassword,
+        admin,
       });
       newUser
         .save()
         .then(savedUser => {
           // req.session.user = { _id: savedUser._id, admin: savedUser.admin };
+          console.log(savedUser);
           res.status(201).json({ user: savedUser });
         })
         .catch((error: Error) => {
@@ -43,6 +47,7 @@ const login = async (req: Request, res: Response) => {
           res.status(500).json({ message: 'error logging in user ' + err.message });
         } else if (same) {
           // req.session.user = { _id: user._id, admin: true };
+          console.log(user);
           res.status(200).json({ message: 'logged in' });
         } else res.status(400).json({ message: 'wrong password' });
       });
