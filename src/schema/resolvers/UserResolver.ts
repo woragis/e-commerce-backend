@@ -53,15 +53,24 @@ const userResolvers = {
           cards: args.input.cards,
           addresses: args.input.addresses,
         });
-        return updatedUser;
+        if (updatedUser) {
+          return updatedUser;
+        }
       } catch (error) {
         console.log('Error updating user: ' + error);
         return error;
       }
     },
-    deleteUser: async (parent: any, { _id }: deleteUserResolverArgs) => {
-      const deletedUser = await UserModel.deleteOne({ _id });
-      return deletedUser;
+    deleteUser: async (parent: any, args: deleteUserResolverArgs) => {
+      try {
+        const deletedUser = await UserModel.findByIdAndDelete(args._id);
+        if (deletedUser.ok) {
+          return 'Deleted User ' + args._id;
+        }
+      } catch (error) {
+        console.log('Error deleting user: ' + error);
+        return error;
+      }
     },
   },
   User: {
