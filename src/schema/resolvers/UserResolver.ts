@@ -42,17 +42,22 @@ const userResolvers = {
       }
     },
     updateUser: async (parent: any, args: updateUserResolverArgs) => {
-      const encryptedPassword = await hash(args.input.password, 12);
-      const updatedUser = await UserModel.findByIdAndUpdate(args.input._id, {
-        name: args.input.name,
-        username: args.input.username,
-        email: args.input.email,
-        password: encryptedPassword,
-        admin: args.input.admin,
-        cards: args.input.cards,
-        addresses: args.input.addresses,
-      });
-      return updatedUser;
+      try {
+        const encryptedPassword = await hash(args.input.password, 12);
+        const updatedUser = await UserModel.findByIdAndUpdate(args.input._id, {
+          name: args.input.name,
+          username: args.input.username,
+          email: args.input.email,
+          password: encryptedPassword,
+          admin: args.input.admin,
+          cards: args.input.cards,
+          addresses: args.input.addresses,
+        });
+        return updatedUser;
+      } catch (error) {
+        console.log('Error updating user: ' + error);
+        return error;
+      }
     },
     deleteUser: async (parent: any, { _id }: deleteUserResolverArgs) => {
       const deletedUser = await UserModel.deleteOne({ _id });
