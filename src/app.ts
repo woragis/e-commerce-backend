@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import schema from './schema/schemas';

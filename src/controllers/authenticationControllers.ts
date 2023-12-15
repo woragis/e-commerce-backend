@@ -4,8 +4,6 @@ import { hash, compare } from 'bcrypt';
 
 const register = async (req: Request, res: Response) => {
   const { name, username, email, password } = req.body;
-  // const session = req.session;
-  // if (session) res.status(400).json({ message: 'already logged in' });
   try {
     if (await UserModel.find({ username })) res.status(400).json({ message: 'username already taken' });
     else if (await UserModel.find({ email })) res.status(400).json({ message: 'email already taken' });
@@ -20,7 +18,7 @@ const register = async (req: Request, res: Response) => {
       newUser
         .save()
         .then(savedUser => {
-          // session.user = { _id: savedUser._id, admin: savedUser.admin };
+          // req.session.user = { _id: savedUser._id, admin: savedUser.admin };
           res.status(201).json({ user: savedUser });
         })
         .catch((error: Error) => {
@@ -35,10 +33,6 @@ const register = async (req: Request, res: Response) => {
 };
 const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  // const session = req.session;
-  // if (session) {
-  // if (session.user) res.status(400).json({ message: 'already logged in' });
-
   try {
     const user = await UserModel.findOne({ email });
     if (!user) res.status(400).json({ message: "email doens't exist" });
@@ -48,10 +42,7 @@ const login = async (req: Request, res: Response) => {
           console.error(err);
           res.status(500).json({ message: 'error logging in user ' + err.message });
         } else if (same) {
-          // session.user = {
-          //   _id: user._id,
-          //   admin: user.admin,
-          // };
+          // req.session.user = { _id: user._id, admin: true };
           res.status(200).json({ message: 'logged in' });
         } else res.status(400).json({ message: 'wrong password' });
       });
@@ -60,7 +51,6 @@ const login = async (req: Request, res: Response) => {
     console.error('error logging in' + error);
     res.status(500).json({ message: 'error logging in ' + error.message });
   }
-  // }
 };
 
 const logout = async (req: Request, res: Response) => {

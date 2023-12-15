@@ -18,6 +18,10 @@
     "url": "https://github.com/woragis/e-commerce-backend/issues"
   },
   "homepage": "https://github.com/woragis/e-commerce-backend#readme",
+  "files": [
+    "src/types/express-session.d.ts",
+    "src/types/express.d.ts"
+  ],
   "dependencies": {
     "@graphql-tools/schema": "^10.0.2",
     "bcrypt": "^5.1.1",
