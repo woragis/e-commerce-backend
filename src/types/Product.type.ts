@@ -28,26 +28,30 @@ export interface readProductArgs {
 }
 
 export interface addProductArgs {
-  name: string;
-  price: number;
-  discount?: boolean;
-  discount_price?: number;
-  quantity: number;
-  description: string;
-  images: string[];
-  specs: ProductSpecs;
+  input: {
+    name: string;
+    price: number;
+    discount?: boolean;
+    discount_price?: number;
+    quantity: number;
+    description: string;
+    images: string[];
+    specs: ProductSpecs;
+  };
 }
 
 export interface editProductArgs {
-  _id: Types.ObjectId;
-  name?: string;
-  price?: number;
-  discount?: boolean;
-  discount_price?: number;
-  quantity?: number;
-  description?: string;
-  images?: string[];
-  specs?: ProductSpecs;
+  input: {
+    _id: Types.ObjectId;
+    name?: string;
+    price?: number;
+    discount?: boolean;
+    discount_price?: number;
+    quantity?: number;
+    description?: string;
+    images?: string[];
+    specs?: ProductSpecs;
+  };
 }
 
 export interface deleteProductArgs {
